@@ -25,7 +25,7 @@ class Game{
         for _ in 0..<self.rowsCount{
             for _ in 0..<self.colsCount{
                 let random = Int(arc4random()%18)
-                if !containsTwo(array: items, element: couples[random]){
+                if !containsTwo(array: items, element: couples[random] ){
                     items.append(couples[random])
                 }
             }
