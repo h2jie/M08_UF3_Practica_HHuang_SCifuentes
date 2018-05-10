@@ -10,8 +10,14 @@
 		AA5E5382209B569D00F8FF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E5381209B569D00F8FF06 /* AppDelegate.swift */; };
 		AA5E5384209B569D00F8FF06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E5383209B569D00F8FF06 /* ViewController.swift */; };
 		AA5E5387209B569D00F8FF06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA5E5385209B569D00F8FF06 /* Main.storyboard */; };
-		AA5E5389209B569F00F8FF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA5E5388209B569F00F8FF06 /* Assets.xcassets */; };
 		AA5E538C209B569F00F8FF06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA5E538A209B569F00F8FF06 /* LaunchScreen.storyboard */; };
+		AA5E5394209B5DF800F8FF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA5E5393209B5DF800F8FF06 /* Assets.xcassets */; };
+		AA5E53A0209B626000F8FF06 /* LoadUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E539F209B626000F8FF06 /* LoadUIViewController.swift */; };
+		AA5E53A2209B63AD00F8FF06 /* MenuUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E53A1209B63AD00F8FF06 /* MenuUIViewController.swift */; };
+		AA5E53A4209B64E900F8FF06 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E53A3209B64E900F8FF06 /* GameViewController.swift */; };
+		AA5EC1B920A1E90400C8B60B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1B820A1E90400C8B60B /* Game.swift */; };
+		AA5EC1BB20A1F5AF00C8B60B /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1BA20A1F5AF00C8B60B /* RankingViewController.swift */; };
+		AA5EC1BD20A1F5EC00C8B60B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1BC20A1F5EC00C8B60B /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,9 +25,15 @@
 		AA5E5381209B569D00F8FF06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA5E5383209B569D00F8FF06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AA5E5386209B569D00F8FF06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AA5E5388209B569F00F8FF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA5E538B209B569F00F8FF06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA5E538D209B569F00F8FF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA5E5393209B5DF800F8FF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA5E539F209B626000F8FF06 /* LoadUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUIViewController.swift; sourceTree = "<group>"; };
+		AA5E53A1209B63AD00F8FF06 /* MenuUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuUIViewController.swift; sourceTree = "<group>"; };
+		AA5E53A3209B64E900F8FF06 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		AA5EC1B820A1E90400C8B60B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		AA5EC1BA20A1F5AF00C8B60B /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
+		AA5EC1BC20A1F5EC00C8B60B /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +66,28 @@
 		AA5E5380209B569D00F8FF06 /* M08_UF3_Practica_HHuang_SCifuentes */ = {
 			isa = PBXGroup;
 			children = (
+				AA5EC1B720A1E8F500C8B60B /* Model */,
 				AA5E5381209B569D00F8FF06 /* AppDelegate.swift */,
 				AA5E5383209B569D00F8FF06 /* ViewController.swift */,
+				AA5E5393209B5DF800F8FF06 /* Assets.xcassets */,
 				AA5E5385209B569D00F8FF06 /* Main.storyboard */,
-				AA5E5388209B569F00F8FF06 /* Assets.xcassets */,
 				AA5E538A209B569F00F8FF06 /* LaunchScreen.storyboard */,
 				AA5E538D209B569F00F8FF06 /* Info.plist */,
+				AA5E539F209B626000F8FF06 /* LoadUIViewController.swift */,
+				AA5E53A1209B63AD00F8FF06 /* MenuUIViewController.swift */,
+				AA5E53A3209B64E900F8FF06 /* GameViewController.swift */,
+				AA5EC1BA20A1F5AF00C8B60B /* RankingViewController.swift */,
+				AA5EC1BC20A1F5EC00C8B60B /* AboutViewController.swift */,
 			);
 			path = M08_UF3_Practica_HHuang_SCifuentes;
+			sourceTree = "<group>";
+		};
+		AA5EC1B720A1E8F500C8B60B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA5EC1B820A1E90400C8B60B /* Game.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,7 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5E538C209B569F00F8FF06 /* LaunchScreen.storyboard in Resources */,
-				AA5E5389209B569F00F8FF06 /* Assets.xcassets in Resources */,
+				AA5E5394209B5DF800F8FF06 /* Assets.xcassets in Resources */,
 				AA5E5387209B569D00F8FF06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,8 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA5E53A4209B64E900F8FF06 /* GameViewController.swift in Sources */,
+				AA5EC1B920A1E90400C8B60B /* Game.swift in Sources */,
+				AA5E53A0209B626000F8FF06 /* LoadUIViewController.swift in Sources */,
+				AA5EC1BB20A1F5AF00C8B60B /* RankingViewController.swift in Sources */,
 				AA5E5384209B569D00F8FF06 /* ViewController.swift in Sources */,
 				AA5E5382209B569D00F8FF06 /* AppDelegate.swift in Sources */,
+				AA5EC1BD20A1F5EC00C8B60B /* AboutViewController.swift in Sources */,
+				AA5E53A2209B63AD00F8FF06 /* MenuUIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

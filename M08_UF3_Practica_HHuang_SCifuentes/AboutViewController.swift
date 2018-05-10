@@ -1,26 +1,19 @@
 //
-//  LoadUIViewController.swift
+//  AboutViewController.swift
 //  M08_UF3_Practica_HHuang_SCifuentes
 //
-//  Created by Hangjie Huang on 2018/5/3.
+//  Created by Hangjie Huang on 2018/5/8.
 //  Copyright © 2018年 Hangjie Huang. All rights reserved.
 //
 
 import UIKit
 
-class LoadUIViewController: UIViewController {
+class AboutViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        loadRedources()
-        
-        if let nc :UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "navigationController") as? UINavigationController{
-            self.present(nc, animated: true, completion: nil)
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,9 +21,6 @@ class LoadUIViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func loadRedources(){
-        Thread.sleep(forTimeInterval: 3)
-    }
 
     /*
     // MARK: - Navigation
