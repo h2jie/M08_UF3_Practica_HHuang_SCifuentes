@@ -34,6 +34,14 @@ class Game{
         
     }
     
+    func increasingTurns(){
+        self.remainingTurns+=1
+    }
+    
+    func decreasingTurns(){
+        self.remainingTurns-=1
+    }
+    
     func increasingScore(){
         self.score+=5
     }

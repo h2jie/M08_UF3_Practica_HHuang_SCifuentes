@@ -18,7 +18,10 @@ class GameViewController: UIViewController {
     private let remainingTurnsLabel = UILabel()
     private var imageViewsArray=[UIImageView]()
     
-    var isUserInteractionEnable=false
+    //User  Input
+    var isUserInteractionEnabled=false
+    var firstSelectedImageViewPosition:Int?
+    var secondSelectedImageViewPosition:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +69,7 @@ class GameViewController: UIViewController {
         self.scoreLabel.text="Score: \(self.currentGame!.score)"
         self.remainingTurnsLabel.text="Turns: \(self.currentGame!.remainingTurns)"
         
-        self.isUserInteractionEnable=true
+        self.isUserInteractionEnabled=true
     }
 
     private func createAndLayoutImages(){
@@ -77,12 +80,12 @@ class GameViewController: UIViewController {
             for c in 0..<self.currentGame!.colsCount{
                 //create UIIMAGEVIEW
                 var imageView = UIImageView(frame: CGRect(x: CGFloat(c)*IMAGEVIEW_WIDTH, y: CGFloat(r)*IMAGEVIEW_HEIGHT, width: IMAGEVIEW_WIDTH, height: IMAGEVIEW_HEIGHT))
-                                print(self.currentGame!.items[r*self.currentGame!.rowsCount+c])
+                print(self.currentGame!.items[r*self.currentGame!.rowsCount+c])
                 imageView.image = UIImage(named: self.currentGame!.items[r*self.currentGame!.rowsCount+c])
 
                 imageView.layer.borderWidth=2
                 imageView.layer.borderColor=UIColor.black.cgColor
-//                imageView.image.
+//                imageView.image=nil para mostrar y esconder la imagen
                 imageView.isUserInteractionEnabled=true
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
                 imageView.addGestureRecognizer(tapGesture)
@@ -94,7 +97,51 @@ class GameViewController: UIViewController {
     }
     
     @objc func tap(gesture:UITapGestureRecognizer){
+        if self.currentGame!.remainingTurns>0 && self.isUserInteractionEnabled{
+            for index in 0..<self.imageViewsArray.count{
+                if self.imageViewsArray[index] == gesture.view{
+                    if self.firstSelectedImageViewPosition==nil{
+                        firstSelectedImageViewPosition=index
+                        //animación en alfa para mostrar la imagen seleccionada
+                        //sobre self.imageViewsArray[index]
+                        break;
+                    }else{
+                        self.currentGame?.decreasingTurns()
+                        if gesture.view==self.imageViewsArray[firstSelectedImageViewPosition!]{//reselect same imageView
+                            self.firstSelectedImageViewPosition=nil
+                            //animación en alfa para esconder la imagen seleccionada
+                            //sobre self.imageViewsArray[index]
+                        }else{//select another
+                            self.secondSelectedImageViewPosition=index
+                            //animación en alfa para mostrar la imagen seleccionada
+                            //sobre self.imageViewsArray[index]
+                            self.isUserInteractionEnabled=false
+                            self.checkCouple()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func checkCouple(){
+        self.firstSelectedImageViewPosition=nil
+        self.secondSelectedImageViewPosition=nil
         
+        if self.currentGame!.items[self.firstSelectedImageViewPosition]==self.currentGame!.items[self.secondSelectedImageViewPosition] {
+            self.currentGame!.increasingScore()
+        }else{
+            self.currentGame!.decreasingScore()
+        }
+        
+        self.scoreLabel.text="Score: \(self.currentGame!.score)"
+        self.remainingTurnsLabel.text="Turns: \(self.currentGame!.remainingTurns)"
+        
+        if self.currentGame!.remainingTurns==0{
+            //Game over
+        }else{
+            self.isUserInteractionEnabled=true
+        }
     }
     /*
     // MARK: - Navigation
