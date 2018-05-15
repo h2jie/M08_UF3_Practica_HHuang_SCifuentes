@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
         let gameViewSize = self.view.frame.width-2*GAME_VIEW_BORDER
         self.gameView.frame = CGRect(x: 0, y: 0, width: gameViewSize, height: gameViewSize)
         self.gameView.center = self.view.center
-        self.gameView.backgroundColor = UIColor.white
+        self.gameView.backgroundColor = UIColor.black
         self.view.addSubview(self.gameView)
         
         //Define labels
@@ -73,23 +73,23 @@ class GameViewController: UIViewController {
     }
 
     private func createAndLayoutImages(){
-        let IMAGEVIEW_WIDTH = self.gameView.frame.width/CGFloat(self.currentGame!.colsCount)
-        let IMAGEVIEW_HEIGHT = self.gameView.frame.height/CGFloat(self.currentGame!.rowsCount)
+        let IMAGEVIEW_BORDER = CGFloat(4)
+        let IMAGEVIEW_WIDTH = (self.gameView.frame.width - CGFloat(self.currentGame!.colsCount+1)*IMAGEVIEW_BORDER)/CGFloat(self.currentGame!.colsCount)
+        let IMAGEVIEW_HEIGHT = (self.gameView.frame.height - CGFloat(self.currentGame!.rowsCount+1)*IMAGEVIEW_BORDER)/CGFloat(self.currentGame!.rowsCount)
+        
         
         for r in 0..<self.currentGame!.rowsCount{
             for c in 0..<self.currentGame!.colsCount{
                 //create UIIMAGEVIEW
-                var imageView = UIImageView(frame: CGRect(x: CGFloat(c)*IMAGEVIEW_WIDTH, y: CGFloat(r)*IMAGEVIEW_HEIGHT, width: IMAGEVIEW_WIDTH, height: IMAGEVIEW_HEIGHT))
+                var imageView = UIImageView(frame: CGRect(x: CGFloat(c)*(IMAGEVIEW_WIDTH+IMAGEVIEW_BORDER), y: CGFloat(r)*(IMAGEVIEW_HEIGHT+IMAGEVIEW_BORDER), width: IMAGEVIEW_WIDTH, height: IMAGEVIEW_HEIGHT))
                 print(self.currentGame!.items[r*self.currentGame!.rowsCount+c])
-                imageView.image = UIImage(named: self.currentGame!.items[r*self.currentGame!.rowsCount+c])
-
-                imageView.layer.borderWidth=2
-                imageView.layer.borderColor=UIColor.black.cgColor
-//                imageView.image=nil para mostrar y esconder la imagen
+//                imageView.image = UIImage(named: self.currentGame!.items[r*self.currentGame!.rowsCount+c])
+//                imageView.alpha = 0
+                imageView.backgroundColor=UIColor.white
                 imageView.isUserInteractionEnabled=true
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
                 imageView.addGestureRecognizer(tapGesture)
-                self.view.addSubview(imageView)
+                self.gameView.addSubview(imageView)
                 self.imageViewsArray.append(imageView)
             }
         }
@@ -102,19 +102,17 @@ class GameViewController: UIViewController {
                 if self.imageViewsArray[index] == gesture.view{
                     if self.firstSelectedImageViewPosition==nil{
                         firstSelectedImageViewPosition=index
-                        //animación en alfa para mostrar la imagen seleccionada
-                        //sobre self.imageViewsArray[index]
+                        animationShowImage(index: index)
                         break;
                     }else{
                         self.currentGame?.decreasingTurns()
                         if gesture.view==self.imageViewsArray[firstSelectedImageViewPosition!]{//reselect same imageView
                             self.firstSelectedImageViewPosition=nil
-                            //animación en alfa para esconder la imagen seleccionada
-                            //sobre self.imageViewsArray[index]
+                            animationHideImage(index: index)
+                            
                         }else{//select another
                             self.secondSelectedImageViewPosition=index
-                            //animación en alfa para mostrar la imagen seleccionada
-                            //sobre self.imageViewsArray[index]
+                            animationShowImage(index: index)
                             self.isUserInteractionEnabled=false
                             self.checkCouple()
                         }
@@ -125,13 +123,13 @@ class GameViewController: UIViewController {
     }
     
     private func checkCouple(){
-        self.firstSelectedImageViewPosition=nil
-        self.secondSelectedImageViewPosition=nil
-        
-        if self.currentGame!.items[self.firstSelectedImageViewPosition]==self.currentGame!.items[self.secondSelectedImageViewPosition] {
+        if self.currentGame!.items[self.firstSelectedImageViewPosition!]==self.currentGame!.items[self.secondSelectedImageViewPosition!] {
             self.currentGame!.increasingScore()
         }else{
             self.currentGame!.decreasingScore()
+//            sleep(2)
+            animationHideImage(index: self.firstSelectedImageViewPosition!)
+            animationHideImage(index: self.secondSelectedImageViewPosition!)
         }
         
         self.scoreLabel.text="Score: \(self.currentGame!.score)"
@@ -139,10 +137,51 @@ class GameViewController: UIViewController {
         
         if self.currentGame!.remainingTurns==0{
             //Game over
+            let label = UILabel(frame: CGRect(x: CGFloat(10), y: self.view.frame.height/2, width: self.view.frame.width-2*CGFloat(10), height: 50))
+            label.text="GAME OVER"
+            label.textAlignment=NSTextAlignment.center
+            label.backgroundColor=UIColor.black
+            label.textColor=UIColor.white
+            label.alpha=0
+            self.view.addSubview(label)
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                label.alpha=1
+            }, completion: {finished in
+                if let rv = self.storyboard?.instantiateViewController(withIdentifier: "rankingController") as? RankingViewController{
+//                    hs.newScore=Score()
+                    self.navigationController?.pushViewController(rv, animated: true)
+                }
+            })
         }else{
             self.isUserInteractionEnabled=true
         }
+        
+        self.firstSelectedImageViewPosition=nil
+        self.secondSelectedImageViewPosition=nil
     }
+    
+    private func animationShowImage(index: Int){
+        self.imageViewsArray[index].alpha = 0
+        let insertImageAnimation = UIViewPropertyAnimator(
+            duration: 3,
+            curve: UIViewAnimationCurve.linear,
+            animations: {self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
+                self.imageViewsArray[index].alpha = 1
+        })
+        insertImageAnimation.startAnimation()
+    }
+    
+    private func animationHideImage(index: Int){
+        let insertImageAnimation = UIViewPropertyAnimator(
+            duration: 3,
+            curve: UIViewAnimationCurve.linear,
+            animations: {self.imageViewsArray[index].image = nil
+                self.imageViewsArray[index].alpha = 0
+        })
+        insertImageAnimation.startAnimation()
+        self.imageViewsArray[index].alpha=1
+    }
+    
     /*
     // MARK: - Navigation
 

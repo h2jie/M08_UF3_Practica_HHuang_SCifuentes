@@ -8,6 +8,7 @@
 
 import Foundation
 class Game{
+   
     let couples:[String] = ["cat","dog","pig","snake","mouse","lion","tiger","camel","panda","bear","wolf","horse","cow","shark","crab","duck","octopus","fish"]
     var items:[String]
     var rowsCount:Int
@@ -22,15 +23,20 @@ class Game{
         self.colsCount = cols
         self.items = [String]()
         
-        for _ in 0..<self.rowsCount{
-            for _ in 0..<self.colsCount{
-                let random = Int(arc4random()%18)
-                if !containsTwo(array: items, element: couples[random] ){
-                    items.append(couples[random])
-                }
+        
+        
+        
+        while items.count < 36 {
+//            for _ in 0..<self.rowsCount{
+//                for _ in 0..<self.colsCount{
+                    let random = Int(arc4random()%18)
+                    if !containsTwo(element: couples[random]){
+                        items.append(couples[random])
+//                    }
+//                }
             }
         }
-        
+ 
         
     }
     
@@ -50,15 +56,13 @@ class Game{
         self.score-=5
     }
     
-    func containsTwo(array:[String], element:String) -> Bool{
+    func containsTwo(element:String) -> Bool{
         var count:Int = 0
         
-        for item in array{
-            if count >= 2 {
-                return true
-            }
+        for item in self.items{
             if item == element{
                 count+=1
+                if (count==2){return true}
             }
         }
         return false

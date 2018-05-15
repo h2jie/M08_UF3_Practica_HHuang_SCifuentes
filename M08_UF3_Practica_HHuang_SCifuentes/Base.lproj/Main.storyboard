@@ -150,19 +150,7 @@
                     <view key="view" contentMode="scaleToFill" id="btb-f3-bdk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_BG_Game" translatesAutoresizingMaskIntoConstraints="NO" id="NrM-FB-Xfu">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="NrM-FB-Xfu" secondAttribute="trailing" id="IKh-Pz-lMk"/>
-                            <constraint firstItem="NrM-FB-Xfu" firstAttribute="bottom" secondItem="SnD-bH-UkS" secondAttribute="bottom" id="efB-IK-lh2"/>
-                            <constraint firstItem="NrM-FB-Xfu" firstAttribute="top" secondItem="SnD-bH-UkS" secondAttribute="top" id="lGv-AV-Ysq"/>
-                            <constraint firstItem="NrM-FB-Xfu" firstAttribute="leading" secondItem="btb-f3-bdk" secondAttribute="leading" id="lpl-DL-mvr"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="SnD-bH-UkS"/>
                     </view>
                 </viewController>
@@ -226,7 +214,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image_BG_Game" width="1600" height="2560"/>
         <image name="Image_Background" width="2160" height="3840"/>
     </resources>
 </document>
