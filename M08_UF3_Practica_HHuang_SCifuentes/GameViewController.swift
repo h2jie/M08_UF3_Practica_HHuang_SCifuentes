@@ -50,14 +50,26 @@ class GameViewController: UIViewController {
         self.scoreLabel.textColor=UIColor.white
         self.view.addSubview(self.scoreLabel)
         
+        //Preserve game state when app enter in background
+        let myApp:UIApplication = UIApplication.shared
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterInBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: myApp)
         
         //Set up game
-        setUpGame()
-        
-        
-        
+        self.setUpGame()
+
     }
-    
+
+    @objc private func applicationDidEnterInBackground(){
+//        save current game
+        if let filePath = Game.fileNamePath(){
+            let encoder = PropertyListEncoder()
+            let data = try? encoder.encode(self.currentGame!)
+            NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
+        }
+        if let nc: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "navigationController") as? UINavigationController{
+            self.present(nc, animated: true, completion: nil)
+        }
+    }
     
     
     private func setUpGame(){
@@ -125,9 +137,9 @@ class GameViewController: UIViewController {
     private func checkCouple(){
         if self.currentGame!.items[self.firstSelectedImageViewPosition!]==self.currentGame!.items[self.secondSelectedImageViewPosition!] {
             self.currentGame!.increasingScore()
+            self.currentGame!.addMatch()
         }else{
             self.currentGame!.decreasingScore()
-//            sleep(2)
             animationHideImage(index: self.firstSelectedImageViewPosition!)
             animationHideImage(index: self.secondSelectedImageViewPosition!)
         }
@@ -135,7 +147,7 @@ class GameViewController: UIViewController {
         self.scoreLabel.text="Score: \(self.currentGame!.score)"
         self.remainingTurnsLabel.text="Turns: \(self.currentGame!.remainingTurns)"
         
-        if self.currentGame!.remainingTurns==0{
+        if self.currentGame!.remainingTurns==0 || !self.currentGame!.matches() {
             //Game over
             let label = UILabel(frame: CGRect(x: CGFloat(10), y: self.view.frame.height/2, width: self.view.frame.width-2*CGFloat(10), height: 50))
             label.text="GAME OVER"
@@ -148,8 +160,14 @@ class GameViewController: UIViewController {
                 label.alpha=1
             }, completion: {finished in
                 if let rv = self.storyboard?.instantiateViewController(withIdentifier: "rankingController") as? RankingViewController{
-//                    hs.newScore=Score()
-                    self.navigationController?.pushViewController(rv, animated: true)
+//                    self.currentGame=nil
+                    rv.newScore=Score(value: self.currentGame!.score, date: Date())
+                    
+                    if self.navigationItem.title == "Couples Game"{
+                        self.navigationController?.pushViewController(rv, animated: true)
+                    } else{
+                        self.present(rv, animated: true, completion: nil)
+                    }
                 }
             })
         }else{
@@ -171,6 +189,18 @@ class GameViewController: UIViewController {
         insertImageAnimation.startAnimation()
     }
     
+    private func animationShowImageWithEndSleep(index: Int){
+        self.imageViewsArray[index].alpha = 0
+        let insertImageAnimation = UIViewPropertyAnimator.runningPropertyAnimator(
+            withDuration: 3,
+            delay: 0,
+            options: UIViewAnimationOptions.curveLinear,
+            animations: {self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
+            self.imageViewsArray[index].alpha = 1
+        }, completion: {finished in sleep(2)})
+        insertImageAnimation.startAnimation()
+    }
+    
     private func animationHideImage(index: Int){
         let insertImageAnimation = UIViewPropertyAnimator(
             duration: 3,
@@ -178,6 +208,18 @@ class GameViewController: UIViewController {
             animations: {self.imageViewsArray[index].image = nil
                 self.imageViewsArray[index].alpha = 0
         })
+        insertImageAnimation.startAnimation()
+        self.imageViewsArray[index].alpha=1
+    }
+    
+    private func animationHideImage2(index: Int){
+        let insertImageAnimation = UIViewPropertyAnimator.runningPropertyAnimator(
+            withDuration: 3,
+            delay: 3,
+            options: UIViewAnimationOptions.curveEaseIn,
+            animations: {self.imageViewsArray[index].image = nil
+            self.imageViewsArray[index].alpha = 0
+        }, completion: {finished in self.animationHideImage(index: self.secondSelectedImageViewPosition!)})
         insertImageAnimation.startAnimation()
         self.imageViewsArray[index].alpha=1
     }

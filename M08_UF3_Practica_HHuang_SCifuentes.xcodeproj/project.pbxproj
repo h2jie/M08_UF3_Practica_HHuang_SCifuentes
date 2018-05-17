@@ -18,6 +18,8 @@
 		AA5EC1B920A1E90400C8B60B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1B820A1E90400C8B60B /* Game.swift */; };
 		AA5EC1BB20A1F5AF00C8B60B /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1BA20A1F5AF00C8B60B /* RankingViewController.swift */; };
 		AA5EC1BD20A1F5EC00C8B60B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EC1BC20A1F5EC00C8B60B /* AboutViewController.swift */; };
+		AAF0EFA820ACAE9B0057F662 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0EFA720ACAE9B0057F662 /* Score.swift */; };
+		AAF0EFAA20ACAEAA0057F662 /* HighScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0EFA920ACAEAA0057F662 /* HighScores.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		AA5EC1B820A1E90400C8B60B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		AA5EC1BA20A1F5AF00C8B60B /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		AA5EC1BC20A1F5EC00C8B60B /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		AAF0EFA720ACAE9B0057F662 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		AAF0EFA920ACAEAA0057F662 /* HighScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScores.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				AA5EC1B820A1E90400C8B60B /* Game.swift */,
+				AAF0EFA720ACAE9B0057F662 /* Score.swift */,
+				AAF0EFA920ACAEAA0057F662 /* HighScores.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,11 +169,13 @@
 			files = (
 				AA5E53A4209B64E900F8FF06 /* GameViewController.swift in Sources */,
 				AA5EC1B920A1E90400C8B60B /* Game.swift in Sources */,
+				AAF0EFAA20ACAEAA0057F662 /* HighScores.swift in Sources */,
 				AA5E53A0209B626000F8FF06 /* LoadUIViewController.swift in Sources */,
 				AA5EC1BB20A1F5AF00C8B60B /* RankingViewController.swift in Sources */,
 				AA5E5384209B569D00F8FF06 /* ViewController.swift in Sources */,
 				AA5E5382209B569D00F8FF06 /* AppDelegate.swift in Sources */,
 				AA5EC1BD20A1F5EC00C8B60B /* AboutViewController.swift in Sources */,
+				AAF0EFA820ACAE9B0057F662 /* Score.swift in Sources */,
 				AA5E53A2209B63AD00F8FF06 /* MenuUIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

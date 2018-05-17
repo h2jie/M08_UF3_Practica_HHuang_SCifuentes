@@ -7,14 +7,16 @@
 //
 
 import Foundation
-class Game{
+class Game: Codable{
    
+    static let filePath = "game.gd"
     let couples:[String] = ["cat","dog","pig","snake","mouse","lion","tiger","camel","panda","bear","wolf","horse","cow","shark","crab","duck","octopus","fish"]
     var items:[String]
     var rowsCount:Int
     var colsCount:Int
     var score:Int
     var remainingTurns:Int
+    var matchesCount:Int = 0
     
     init(rows:Int, cols:Int) {
         self.score = 0;
@@ -38,6 +40,17 @@ class Game{
         }
  
         
+    }
+    
+    func matches () -> Bool {
+        if self.matchesCount == 18 {
+            return false
+        }
+        return true
+    }
+    
+    func addMatch(){
+        self.matchesCount += 1
     }
     
     func increasingTurns(){
@@ -68,5 +81,13 @@ class Game{
         return false
     }
     
+    static func fileNamePath() -> String?{
+        let fileManager = FileManager()
+        if let dirDocument = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first{
+            let gameData = dirDocument.appendingPathComponent(self.filePath)
+            return gameData.path
+        }
+        return nil
+    }
     
 }

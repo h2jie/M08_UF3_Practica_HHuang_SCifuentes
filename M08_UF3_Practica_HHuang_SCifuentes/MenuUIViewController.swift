@@ -17,7 +17,24 @@ class MenuUIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let filePath = Game.fileNamePath(){
+            
+            if let data = NSKeyedUnarchiver.unarchiveObject(withFile:filePath) as? Data{
+                let decoder = PropertyListDecoder()
+                self.previousGame = try? decoder.decode(Game.self, from: data)
+                
+                let fileManager = FileManager()
+
+                do{
+                    try fileManager.removeItem(atPath: filePath)
+                }catch let error as NSError {
+                    print("Ooops! Something went wrong: \(error)")
+                }
+                
+            }
+        }
+        
+        continueGameButton.addTarget(self, action: #selector(continueGamePressed(_:)), for: UIControlEvents.allTouchEvents)
         
         if previousGame==nil {
             continueGameButton.isHidden=true
@@ -26,13 +43,29 @@ class MenuUIViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func startGamePressed(_ sender: UIButton) {
+    @objc func continueGamePressed(_ sender: UIButton) {
         if let gc = self.storyboard?.instantiateViewController(withIdentifier: "gameController")as? GameViewController{
             
             if  let game = previousGame{
                 gc.currentGame = game
+                self.previousGame = nil
+               // self.present(gc, animated: true, completion: nil)
+                self.navigationController?.pushViewController(gc, animated: true)
             }
+            
+            /*else {
+                self.navigationController?.pushViewController(gc, animated: true)
+            } */
+            
+            
+            
+            
+            
+        }
+    }
+    
+    @IBAction func startGamePressed(_ sender: UIButton) {
+        if let gc = self.storyboard?.instantiateViewController(withIdentifier: "gameController")as? GameViewController{
             
             self.navigationController?.pushViewController(gc, animated: true)
             
