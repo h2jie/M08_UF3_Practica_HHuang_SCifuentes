@@ -28,7 +28,7 @@ class Game: Codable{
         
         
         
-        while items.count < 36 {
+        while items.count < 40 {
 //            for _ in 0..<self.rowsCount{
 //                for _ in 0..<self.colsCount{
                     let random = Int(arc4random()%18)
