@@ -144,7 +144,7 @@ class GameViewController: UIViewController {
         self.scoreLabel.text="Score: \(self.currentGame!.score)"
         self.remainingTurnsLabel.text="Turns: \(self.currentGame!.remainingTurns)"
         
-        if self.currentGame!.remainingTurns==0 || !self.currentGame!.matches() {
+        if self.currentGame!.remainingTurns==0 {
             //Game over
             let label = UILabel(frame: CGRect(x: CGFloat(10), y: self.view.frame.height/2, width: self.view.frame.width-2*CGFloat(10), height: 50))
             label.text="GAME OVER"
@@ -158,6 +158,29 @@ class GameViewController: UIViewController {
             }, completion: {finished in
                 if let rv = self.storyboard?.instantiateViewController(withIdentifier: "rankingController") as? RankingViewController{
 //                    self.currentGame=nil
+                    rv.newScore=Score(value: self.currentGame!.score, date: Date())
+                    
+                    if self.navigationItem.title == "Couples Game"{
+                        self.navigationController?.pushViewController(rv, animated: true)
+                    } else{
+                        self.present(rv, animated: true, completion: nil)
+                    }
+                }
+            })
+        } else if !self.currentGame!.matches() {
+            //Win
+            let label = UILabel(frame: CGRect(x: CGFloat(10), y: self.view.frame.height/2, width: self.view.frame.width-2*CGFloat(10), height: 50))
+            label.text="YOU WIN"
+            label.textAlignment=NSTextAlignment.center
+            label.backgroundColor=UIColor.black
+            label.textColor=UIColor.white
+            label.alpha=0
+            self.view.addSubview(label)
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                label.alpha=1
+            }, completion: {finished in
+                if let rv = self.storyboard?.instantiateViewController(withIdentifier: "rankingController") as? RankingViewController{
+                    //                    self.currentGame=nil
                     rv.newScore=Score(value: self.currentGame!.score, date: Date())
                     
                     if self.navigationItem.title == "Couples Game"{
