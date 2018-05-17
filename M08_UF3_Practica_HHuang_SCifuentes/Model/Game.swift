@@ -20,7 +20,7 @@ class Game: Codable{
     
     init(rows:Int, cols:Int) {
         self.score = 0;
-        self.remainingTurns=36
+        self.remainingTurns=40
         self.rowsCount = rows
         self.colsCount = cols
         self.items = [String]()
@@ -28,7 +28,7 @@ class Game: Codable{
         
         
         
-        while items.count < 40 {
+        while items.count < 36 {
 //            for _ in 0..<self.rowsCount{
 //                for _ in 0..<self.colsCount{
                     let random = Int(arc4random()%18)
