@@ -20,7 +20,7 @@ class Game: Codable{
     
     init(rows:Int, cols:Int) {
         self.score = 0;
-        self.remainingTurns=20
+        self.remainingTurns=36
         self.rowsCount = rows
         self.colsCount = cols
         self.items = [String]()
@@ -66,7 +66,7 @@ class Game: Codable{
     }
     
     func decreasingScore(){
-        self.score-=5
+        self.score-=2
     }
     
     func containsTwo(element:String) -> Bool{

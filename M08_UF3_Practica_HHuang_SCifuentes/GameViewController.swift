@@ -114,13 +114,12 @@ class GameViewController: UIViewController {
                 if self.imageViewsArray[index] == gesture.view{
                     if self.firstSelectedImageViewPosition==nil{
                         firstSelectedImageViewPosition=index
-                        animationShowImage(index: index)
+                        simpleAnimationShowImage(index: index)
                         break;
                     }else{
                         self.currentGame?.decreasingTurns()
                         if gesture.view==self.imageViewsArray[firstSelectedImageViewPosition!]{//reselect same imageView
-                            self.firstSelectedImageViewPosition=nil
-                            animationHideImage(index: index)
+                            self.imageViewsArray[index].image = nil
                             
                         }else{//select another
                             self.secondSelectedImageViewPosition=index
@@ -140,8 +139,6 @@ class GameViewController: UIViewController {
             self.currentGame!.addMatch()
         }else{
             self.currentGame!.decreasingScore()
-            animationHideImage(index: self.firstSelectedImageViewPosition!)
-            animationHideImage(index: self.secondSelectedImageViewPosition!)
         }
         
         self.scoreLabel.text="Score: \(self.currentGame!.score)"
@@ -170,12 +167,7 @@ class GameViewController: UIViewController {
                     }
                 }
             })
-        }else{
-            self.isUserInteractionEnabled=true
         }
-        
-        self.firstSelectedImageViewPosition=nil
-        self.secondSelectedImageViewPosition=nil
     }
     
     private func animationShowImage(index: Int){
@@ -183,45 +175,32 @@ class GameViewController: UIViewController {
         let insertImageAnimation = UIViewPropertyAnimator(
             duration: 3,
             curve: UIViewAnimationCurve.linear,
-            animations: {self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
+            animations: {self.isUserInteractionEnabled=false
+                self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
                 self.imageViewsArray[index].alpha = 1
+        })
+        insertImageAnimation.addCompletion({finished in if self.currentGame!.items[self.firstSelectedImageViewPosition!]==self.currentGame!.items[self.secondSelectedImageViewPosition!]{self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
+        }else{
+            self.imageViewsArray[index].image = nil
+            self.imageViewsArray[self.firstSelectedImageViewPosition!].image=nil
+            }
+            self.firstSelectedImageViewPosition=nil
+            self.secondSelectedImageViewPosition=nil
+            self.isUserInteractionEnabled=true
         })
         insertImageAnimation.startAnimation()
     }
     
-    private func animationShowImageWithEndSleep(index: Int){
+    private func simpleAnimationShowImage(index: Int){
         self.imageViewsArray[index].alpha = 0
-        let insertImageAnimation = UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 3,
-            delay: 0,
-            options: UIViewAnimationOptions.curveLinear,
-            animations: {self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
-            self.imageViewsArray[index].alpha = 1
-        }, completion: {finished in sleep(2)})
-        insertImageAnimation.startAnimation()
-    }
-    
-    private func animationHideImage(index: Int){
         let insertImageAnimation = UIViewPropertyAnimator(
             duration: 3,
             curve: UIViewAnimationCurve.linear,
-            animations: {self.imageViewsArray[index].image = nil
-                self.imageViewsArray[index].alpha = 0
+            animations: {
+                self.imageViewsArray[index].image = UIImage(named: self.currentGame!.items[index])
+                self.imageViewsArray[index].alpha = 1
         })
         insertImageAnimation.startAnimation()
-        self.imageViewsArray[index].alpha=1
-    }
-    
-    private func animationHideImage2(index: Int){
-        let insertImageAnimation = UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 3,
-            delay: 3,
-            options: UIViewAnimationOptions.curveEaseIn,
-            animations: {self.imageViewsArray[index].image = nil
-            self.imageViewsArray[index].alpha = 0
-        }, completion: {finished in self.animationHideImage(index: self.secondSelectedImageViewPosition!)})
-        insertImageAnimation.startAnimation()
-        self.imageViewsArray[index].alpha=1
     }
     
     /*
